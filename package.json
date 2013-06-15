@@ -1,0 +1,43 @@
+{
+  "name": "workerify",
+  "description": "Transform web workers into browserified inline Blobs with browserify.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/shama/workerify",
+  "author": {
+    "name": "Kyle Robinson Young",
+    "email": "kyle@dontkry.com",
+    "url": "http://dontkry.com"
+  },
+  "main": "index.js",
+  "keywords": [
+    "worker",
+    "browserify",
+    "transform"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shama/workerify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shama/workerify/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/shama/workerify/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "node test/workerify.js"
+  },
+  "dependencies": {
+    "through": "~2.3.4",
+    "esprima": "~1.0.3",
+    "estraverse": "~1.1.2",
+    "escodegen": "0.0.23"
+  },
+  "devDependencies": {}
+}
