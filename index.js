@@ -73,7 +73,6 @@ function bfy(entry, done) {
   if (entry.slice(0, 2) !== './') {
     entry = './node_modules/' + entry
   }
-  console.log(path.join(cwd, entry))
   b.add(path.join(cwd, entry))
   var bundle = b.bundle()
   bundle.on('data', function(buf) { data += buf })
