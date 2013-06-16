@@ -1,14 +1,15 @@
+var browserify = require('browserify')
 var through = require('through')
 var esprima = require('esprima')
 var estraverse = require('estraverse')
 var escodegen = require('escodegen')
-var spawn = require('child_process').spawn
 var path = require('path')
 var fs = require('fs')
 
 var cwd = process.cwd()
 
 module.exports = function(file) {
+  if (!/\.js$/.test(file)) return through()
   cwd = path.dirname(file)
   var data = ''
   return through(write, end)
@@ -56,7 +57,7 @@ function isWorker(node) {
 
 function makeBlob(node, done) {
   var filename = node.arguments[0].value
-  bfy(filename, [], function(err, data) {
+  bfy(filename, function(err, data) {
     if (err) return done()
     var blob = esprima.parse('window.URL.createObjectURL(new Blob([""]))')
     blob.body[0].expression.arguments[0].arguments[0].elements[0].value = data
@@ -65,25 +66,16 @@ function makeBlob(node, done) {
   })
 }
 
-function whichbfy() {
-  var local = path.join(__dirname, 'node_modules/.bin/browserify')
-  if (process.platform === 'win32') local += '.cmd'
-  return (fs.existsSync(local)) ? local : 'browserify'
-}
-
 // TODO: get process.argv browserify args
-function bfy(filename, args, done) {
-  args.unshift('-e', filename)
-  var bundled = ''
-  var errors = ''
-  var b = spawn(whichbfy(), args, {cwd: cwd})
-  b.stderr.on('data', function(buf) { errors += buf })
-  b.stdout.on('data', function(buf) { bundled += buf })
-  b.on('close', function() {
-    if (errors.length > 0) {
-      done(errors)
-    } else {
-      done(null, bundled)
-    }
-  })
+function bfy(entry, done) {
+  var data = ''
+  var b = browserify();
+  if (entry.slice(0, 2) !== './') {
+    entry = './node_modules/' + entry
+  }
+  console.log(path.join(cwd, entry))
+  b.add(path.join(cwd, entry))
+  var bundle = b.bundle()
+  bundle.on('data', function(buf) { data += buf })
+  bundle.on('close', function() { done(null, data) })
 }

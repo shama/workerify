@@ -37,7 +37,8 @@
     "through": "~2.3.4",
     "esprima": "~1.0.3",
     "estraverse": "~1.1.2",
-    "escodegen": "0.0.23"
+    "escodegen": "0.0.23",
+    "browserify": "~2.18.1"
   },
   "devDependencies": {}
 }
