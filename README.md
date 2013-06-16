@@ -30,6 +30,30 @@ var mod = require('module')
 var worker = new Worker(window.URL.createObjectURL(new Blob(['BROWSERIFIED CONTENTS OF worker.js'])));
 ```
 
+## Modular Workers
+The main reason for this is modular workers.
+
+Let's say you create a module that would like to use web workers. Users would
+need to configure the URL to the worker. When your module becomes a dependency
+of a dependency and so on, the setup becomes really cumbersome. Especially when
+your worker needs to be browserified.
+
+With this transform you simply `npm install workerify --save` and configure your
+module's `package.json` to apply the transform:
+
+``` json
+{
+  "name": "mymodule",
+  "browserify": {
+    "transform": "workerify"
+  }
+}
+```
+
+Now when end users `browserify` your module, anywhere in the dependency tree, it
+will browserify and inline the worker. No URLs, no extra build steps and no
+additional end user requirements.
+
 ## Notes
 **This is a work in progress.** Currently it will only transform
 `new Worker('string')`. But it should also detect if a worker is variable
