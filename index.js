@@ -59,7 +59,7 @@ function makeBlob(node, done) {
   var filename = node.arguments[0].value
   bfy(filename, function(err, data) {
     if (err) return done()
-    var blob = esprima.parse('window.URL.createObjectURL(new Blob([""]))')
+    var blob = esprima.parse('window.URL.createObjectURL(new Blob([""],{type:"text/javascript"}))')
     blob.body[0].expression.arguments[0].arguments[0].elements[0].value = data
     node.arguments = [blob.body[0].expression]
     done()
