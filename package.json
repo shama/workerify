@@ -31,12 +31,16 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "node test/workerify.js"
+    "test": "node test/workerify.js",
+    "start": "cd example && ./node_modules/.bin/beefy index.js 8080 -- -t workerify"
   },
   "dependencies": {
     "through": "~2.3.4",
     "browserify": "~2.18.1",
     "string-escape": "~0.1.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "beefy": "~0.4.0",
+    "workerstream": "~1.0.1"
+  }
 }

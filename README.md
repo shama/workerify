@@ -30,6 +30,9 @@ var mod = require('module')
 var worker = new Worker(window.URL.createObjectURL(new Blob(['BROWSERIFIED CONTENTS OF worker.js'])));
 ```
 
+### further example
+Take a look at the [example module](https://github.com/shama/workerify/tree/master/example) for using with [workerstream](https://github.com/maxogden/workerstream).
+
 ## Modular Workers
 The main reason for this is modular workers.
 

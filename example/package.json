@@ -1,0 +1,18 @@
+{
+  "private": "true",
+  "name": "workerify-test",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "./node_modules/.bin/beefy test/browser.js 8080 -- -t workerify"
+  },
+  "dependencies": {
+    "workerify": "~0.2.0",
+    "beefy": "~0.4.0",
+    "workerstream": "~1.0.1"
+  },
+  "devDependencies": {
+  },
+  "browserify": {
+    "transform": "workerify"
+  }
+}
