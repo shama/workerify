@@ -1,6 +1,13 @@
 module.exports = function() {
-  var worker = new Worker('./another.js')
+  var file = './another.js'
 
-  var another = './another.js'
-  var worker2 = new Worker(another)
+  // With keyword
+  var str = workerify './another.js'
+  var worker = new Worker(str)
+
+  // Straight string
+  var worker2 = new Worker('./another.js')
+
+  // With a variable
+  var worker4 = new Worker(file)
 }

@@ -55,10 +55,21 @@ will browserify and inline the worker. No URLs, no extra build steps and no
 additional end user requirements.
 
 ## Notes
-**This is a work in progress.** Currently it will only transform
-`new Worker('string')`. But it should also detect if a worker is variable
-identifier so it can be used with libs like
-[workerstream](https://github.com/maxogden/workerstream).
+Currently it will transform the following:
+
+```js
+// String literal
+new Worker('./path/to/worker.js')
+
+// Variable Init Earlier
+var myworker = './path/to/worker.js'
+new Worker(myworker)
+
+// Or specify the workerify keyword to browserify a string anywhere
+// Useful if you want to inline your worker when working with other libs
+var myworker = workerify './path/to/worker.js'
+var workerstream = require('workerstream')(myworker)
+```
 
 ## install
 
@@ -69,6 +80,7 @@ npm install workerify
 ```
 
 ## release history
+* 0.2.0 - use falafel and support more formats
 * 0.1.0 - initial release
 
 ## license

@@ -1,8 +1,7 @@
 var browserify = require('browserify')
 var through = require('through')
-var esprima = require('esprima')
-var estraverse = require('estraverse')
-var escodegen = require('escodegen')
+var falafel = require('falafel')
+var strescape = require('string-escape')
 var path = require('path')
 var fs = require('fs')
 
@@ -15,26 +14,47 @@ module.exports = function(file) {
   return through(write, end)
   function write(buf) { data += buf }
   function end() {
-    var self = this
-    var ast = esprima.parse(data)
-    var i = 0, allDone = false
+    var self = this, i = 0, allDone = false, output, vars = Object.create(null)
+
     function done() {
       i--
       if (allDone && i < 1) {
-        self.queue(escodegen.generate(ast))
+        self.queue(String(output))
         self.queue(null)
       }
     }
-    var vars = Object.create(null)
-    estraverse.replace(ast, {
-      enter: function(node) {
-        if (isWorker(node)) {
-          i++
-          shouldTransform = true
-          makeBlob(node, done)
-        }
+
+    // Collect vars
+    falafel(data, {isKeyword:isKeyword}, function(node) {
+      if (isVarLiteral(node)) {
+        vars[node.id.name] = node.init.value
       }
     })
+
+    // process source
+    output = falafel(data, {isKeyword:isKeyword}, function(node) {
+      var filename = false, withWorker = false
+      if (isWorkerifyKeyword(node)) {
+        filename = node.argument.value
+      } else if (isWorker(node)) {
+        withWorker = true
+        if (node.arguments[0].type === 'Literal') {
+          filename = node.arguments[0].value
+        }
+        if (node.arguments[0].type === 'Identifier' && vars[node.arguments[0].name]) {
+          filename = vars[node.arguments[0].name]
+        }
+      }
+      // browserify and update node
+      if (filename !== false) {
+        i++
+        bfy(filename, function(err, data) {
+          node.update(makeBlob(data, withWorker))
+          done()
+        })
+      }
+    })
+
     if (i === 0) {
       // no workers found skip
       self.queue(data)
@@ -46,23 +66,35 @@ module.exports = function(file) {
   }
 }
 
-// TODO: Detect if Worker parent is top level
-// TODO: Detect if Worker argument is an Identifier (variable instead of string)
-function isWorker(node) {
-  return node.type === 'NewExpression' &&
-    node.callee &&
-    node.callee.type === 'Identifier' &&
-    node.callee.name === 'Worker'
+function isKeyword(id) {
+  if (id === 'workerify') return true
 }
 
-function makeBlob(node, done) {
-  var filename = node.arguments[0].value
-  bfy(filename, function(err, data) {
-    if (err) return done()
-    var blob = esprima.parse('window.URL.createObjectURL(new Blob([""],{type:"text/javascript"}))')
-    blob.body[0].expression.arguments[0].arguments[0].elements[0].value = data
-    node.arguments = [blob.body[0].expression]
-    done()
+function isWorker(node) {
+  return node.type === 'NewExpression'
+    && node.callee
+    && node.callee.type === 'Identifier'
+    && node.callee.name === 'Worker'
+}
+
+function isVarLiteral(node) {
+  return node.type === 'VariableDeclarator'
+    && node.init.type === 'Literal'
+}
+
+function isWorkerifyKeyword(node) {
+  return node.type === 'UnaryExpression'
+    && node.operator === 'workerify'
+    && node.argument.type === 'Literal'
+}
+
+function makeBlob(str, withWorker) {
+  var src = 'window.URL.createObjectURL(new Blob([""]))'
+  if (withWorker === true) src = 'new Worker(' + src + ')'
+  return falafel(src, function(node) {
+    if (node.type === 'Literal') {
+      node.update(strescape(str, {'wrap': true}))
+    }
   })
 }
 

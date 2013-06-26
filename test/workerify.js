@@ -5,4 +5,6 @@ var fixture = path.join(__dirname, 'fixture/file.js')
 var out = path.join(__dirname, 'out/test.js')
 
 var stream = workerify(fixture)
-fs.createReadStream(fixture).pipe(stream).pipe(fs.createWriteStream(out))
+fs.createReadStream(fixture).pipe(stream)
+  //.pipe(process.stdout)
+  .pipe(fs.createWriteStream(out))
