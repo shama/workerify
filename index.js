@@ -89,10 +89,10 @@ function isWorkerifyKeyword(node) {
 }
 
 function makeBlob(str, withWorker) {
-  var src = 'window.URL.createObjectURL(new Blob([""]))'
+  var src = 'window.URL.createObjectURL(new Blob([""],{type:"text/javascript"}))'
   if (withWorker === true) src = 'new Worker(' + src + ')'
   return falafel(src, function(node) {
-    if (node.type === 'Literal') {
+    if (node.type === 'Literal' && node.value === '') {
       node.update(strescape(str, {'wrap': true}))
     }
   })
