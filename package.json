@@ -37,7 +37,8 @@
   "dependencies": {
     "through": "~2.3.4",
     "browserify": "~2.18.1",
-    "string-escape": "~0.1.6"
+    "string-escape": "~0.1.6",
+    "falafel": "~0.2.1"
   },
   "devDependencies": {
     "beefy": "~0.4.0",
