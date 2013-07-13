@@ -79,6 +79,7 @@ function isWorker(node) {
 
 function isVarLiteral(node) {
   return node.type === 'VariableDeclarator'
+    && node.init
     && node.init.type === 'Literal'
 }
 
