@@ -1,4 +1,6 @@
 module.exports = function() {
+  var unitialized
+
   var file = './another.js'
 
   // With keyword
