@@ -1,7 +1,7 @@
 var browserify = require('browserify')
 var through = require('through')
 var falafel = require('falafel')
-var strescape = require('string-escape')
+var strescape = require('jsesc')
 var path = require('path')
 var fs = require('fs')
 
