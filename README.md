@@ -83,6 +83,7 @@ npm install workerify
 ```
 
 ## release history
+* 0.2.2 - string-escape dep renamed to jsesc (@mathiasbynens)
 * 0.2.1 - Add missing falafel dep and bug fixes (@mikolalysenko)
 * 0.2.0 - use falafel and support more formats
 * 0.1.0 - initial release
