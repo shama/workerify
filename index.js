@@ -8,7 +8,7 @@ var fs = require('fs')
 var cwd = process.cwd()
 
 module.exports = function(file) {
-  if (!/\.js$/.test(file)) return through()
+  if (!/\.(js|coffee)$/.test(file)) return through()
   cwd = path.dirname(file)
   var data = ''
   return through(write, end)

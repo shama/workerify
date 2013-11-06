@@ -74,6 +74,12 @@ var myworker = workerify './path/to/worker.js'
 var workerstream = require('workerstream')(myworker)
 ```
 
+### Using with coffeescript
+
+```shell
+browserify file.coffee -t coffeeify -t workerify
+```
+
 ## install
 
 With [npm](https://npmjs.org) do:
@@ -83,6 +89,7 @@ npm install workerify
 ```
 
 ## release history
+* 0.2.3 - support compilation from coffeescript original source file
 * 0.2.2 - string-escape dep renamed to jsesc (@mathiasbynens)
 * 0.2.1 - Add missing falafel dep and bug fixes (@mikolalysenko)
 * 0.2.0 - use falafel and support more formats
