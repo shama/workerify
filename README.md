@@ -89,6 +89,7 @@ npm install workerify
 ```
 
 ## release history
+* 0.2.4 - using [uglify-js](https://github.com/mishoo/UglifyJS2) to minify worker blob (@skratchdot)
 * 0.2.3 - support compilation from coffeescript original source file
 * 0.2.2 - string-escape dep renamed to jsesc (@mathiasbynens)
 * 0.2.1 - Add missing falafel dep and bug fixes (@mikolalysenko)
