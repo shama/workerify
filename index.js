@@ -4,6 +4,7 @@ var falafel = require('falafel')
 var strescape = require('jsesc')
 var path = require('path')
 var fs = require('fs')
+var UglifyJS = require('uglify-js')
 
 var cwd = process.cwd()
 
@@ -109,5 +110,5 @@ function bfy(entry, done) {
   b.add(path.join(cwd, entry))
   var bundle = b.bundle()
   bundle.on('data', function(buf) { data += buf })
-  bundle.on('close', function() { done(null, data) })
+  bundle.on('close', function() { done(null, UglifyJS.minify(data, {fromString: true}).code) })
 }
