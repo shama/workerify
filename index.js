@@ -109,5 +109,5 @@ function bfy(entry, done) {
   b.add(path.join(cwd, entry))
   var bundle = b.bundle()
   bundle.on('data', function(buf) { data += buf })
-  bundle.on('close', function() { done(null, data) })
+  bundle.on('end', function() { done(null, data) })
 }
