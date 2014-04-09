@@ -35,7 +35,7 @@
     "start": "cd example && ./node_modules/.bin/beefy index.js 8080 -- -t workerify"
   },
   "dependencies": {
-    "browserify": "~2.18.1",
+    "browserify": "^3.38.0",
     "falafel": "~0.2.1",
     "jsesc": "~0.3.0",
     "through": "~2.3.4"
