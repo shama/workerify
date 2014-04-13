@@ -48,7 +48,11 @@ module.exports = function(file) {
       // browserify and update node
       if (filename !== false) {
         i++
-        bfy(filename, function(err, data) {
+        var resolvedFile = resolveEntry(filename);
+
+        self.emit('file', resolvedFile)
+
+        bfy(resolvedFile, function(err, data) {
           node.update(makeBlob(data, withWorker))
           done()
         })
@@ -99,14 +103,20 @@ function makeBlob(str, withWorker) {
   })
 }
 
+function resolveEntry(entry) {
+  if (entry.slice(0, 2) !== './') {
+    entry = './node_modules/' + entry
+  }
+
+  return path.join(cwd, entry);
+}
+
 // TODO: get process.argv browserify args
 function bfy(entry, done) {
   var data = ''
   var b = browserify();
-  if (entry.slice(0, 2) !== './') {
-    entry = './node_modules/' + entry
-  }
-  b.add(path.join(cwd, entry))
+
+  b.add(entry)
   var bundle = b.bundle()
   bundle.on('data', function(buf) { data += buf })
   bundle.on('end', function() { done(null, data) })
