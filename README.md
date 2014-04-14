@@ -91,6 +91,7 @@ npm install workerify
 ```
 
 ## release history
+* 0.3.0 - Upgrade browserify to 3.41.0. Allow worker to be used with watchify (@tmpvar)
 * 0.2.3 - support compilation from coffeescript original source file
 * 0.2.2 - string-escape dep renamed to jsesc (@mathiasbynens)
 * 0.2.1 - Add missing falafel dep and bug fixes (@mikolalysenko)

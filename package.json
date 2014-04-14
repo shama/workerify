@@ -1,7 +1,7 @@
 {
   "name": "workerify",
   "description": "Transform web workers into browserified inline Blobs with browserify.",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "homepage": "https://github.com/shama/workerify",
   "author": {
     "name": "Kyle Robinson Young",
