@@ -2,6 +2,8 @@
 
 Transform web workers into browserified inline Blobs with browserify.
 
+[![browser support](https://ci.testling.com/shama/workerify.png)](https://ci.testling.com/shama/workerify)
+
 ## example
 
 Your entry point `main.js`:
