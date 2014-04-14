@@ -31,7 +31,7 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "beefy test/test.js -- -t ./",
+    "test": "browserify -t ./ test/test.js -o test/out.js",
     "start": "beefy example/index.js -- -t ./"
   },
   "dependencies": {
@@ -46,7 +46,7 @@
     "tape": "~2.12.3"
   },
   "testling": {
-    "files": "test/test.js",
+    "files": "test/out.js",
     "browsers": [
       "ielatest",
       "chrome/latest",
