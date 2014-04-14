@@ -48,13 +48,13 @@
   "testling": {
     "files": "test/test.js",
     "browsers": [
-      "ie/10..latest",
-      "chrome/31..latest",
-      "firefox/27..latest",
+      "ielatest",
+      "chrome/latest",
+      "firefoxlatest",
       "safari/latest",
-      "opera/20.0..latest",
-      "iphone/6",
-      "ipad/6",
+      "opera/latest",
+      "iphone/latest",
+      "ipad/latest",
       "android-browser/latest"
     ]
   }
