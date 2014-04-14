@@ -31,17 +31,31 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "node test/workerify.js",
-    "start": "cd example && ./node_modules/.bin/beefy index.js 8080 -- -t workerify"
+    "test": "beefy test/test.js -- -t ./",
+    "start": "beefy example/index.js -- -t ./"
   },
   "dependencies": {
-    "browserify": "^3.38.0",
+    "browserify": "~3.41.0",
     "falafel": "~0.2.1",
     "jsesc": "~0.3.0",
     "through": "~2.3.4"
   },
   "devDependencies": {
-    "beefy": "~0.4.0",
-    "workerstream": "~1.0.1"
+    "beefy": "~1.1.0",
+    "workerstream": "~1.0.1",
+    "tape": "~2.12.3"
+  },
+  "testling": {
+    "files": "test/test.js",
+    "browsers": [
+      "ie/6..latest",
+      "chrome/22..latest",
+      "firefox/16..latest",
+      "safari/latest",
+      "opera/11.0..latest",
+      "iphone/6",
+      "ipad/6",
+      "android-browser/latest"
+    ]
   }
 }
