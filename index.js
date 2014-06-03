@@ -5,11 +5,11 @@ var strescape = require('jsesc')
 var path = require('path')
 var fs = require('fs')
 
-var cwd = process.cwd()
+//var cwd = process.cwd()
 
 module.exports = function(file) {
   if (!/\.(js|coffee)$/.test(file)) return through()
-  cwd = path.dirname(file)
+  var cwd = path.dirname(file)
   var data = ''
   return through(write, end)
   function write(buf) { data += buf }
@@ -48,7 +48,7 @@ module.exports = function(file) {
       // browserify and update node
       if (filename !== false) {
         i++
-        var resolvedFile = resolveEntry(filename);
+        var resolvedFile = resolveEntry(filename, cwd);
 
         self.emit('file', resolvedFile)
 
@@ -103,7 +103,7 @@ function makeBlob(str, withWorker) {
   })
 }
 
-function resolveEntry(entry) {
+function resolveEntry(entry, cwd) {
   if (entry.slice(0, 2) !== './') {
     entry = './node_modules/' + entry
   }
