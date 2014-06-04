@@ -5,8 +5,6 @@ var strescape = require('jsesc')
 var path = require('path')
 var fs = require('fs')
 
-cwd = process.cwd()
-
 module.exports = function(file) {
   if (!/\.(js|coffee)$/.test(file)) return through()
   var cwd = path.dirname(file)
