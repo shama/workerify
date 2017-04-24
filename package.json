@@ -39,7 +39,7 @@
     "index.js"
   ],
   "dependencies": {
-    "browserify": "~3.41.0",
+    "browserify": "^14.0.0",
     "falafel": "~0.2.1",
     "jsesc": "~0.3.0",
     "through": "~2.3.4"
