@@ -32,7 +32,7 @@
   },
   "scripts": {
     "test": "browserify test/test.js -t ./ -o test/out.js",
-    "start": "beefy example/index.js -- -t ./"
+    "start": "budo example/index.js -- -t ./"
   },
   "files": [
     "LICENSE-MIT",
@@ -40,14 +40,14 @@
   ],
   "dependencies": {
     "browserify": "^14.0.0",
-    "falafel": "~0.2.1",
-    "jsesc": "~0.3.0",
-    "through": "~2.3.4"
+    "falafel": "^0.2.1",
+    "jsesc": "^2.5.0",
+    "through": "^2.3.4"
   },
   "devDependencies": {
-    "beefy": "~1.1.0",
-    "workerstream": "~1.0.1",
-    "tape": "~2.12.3"
+    "budo": "^10.0.3",
+    "workerstream": "^1.2.1",
+    "tape": "^4.6.3"
   },
   "testling": {
     "files": "test/out.js",
