@@ -91,6 +91,7 @@ npm install workerify
 ```
 
 ## release history
+* 1.0.0 - Upgrade browserify to 14.0.0 (@runn1ng) and other deps. Prefer window.URL over window.webkitURL.
 * 0.3.0 - Upgrade browserify to 3.41.0. Allow worker to be used with watchify (@tmpvar)
 * 0.2.3 - support compilation from coffeescript original source file
 * 0.2.2 - string-escape dep renamed to jsesc (@mathiasbynens)
@@ -99,5 +100,5 @@ npm install workerify
 * 0.1.0 - initial release
 
 ## license
-Copyright (c) 2013 Kyle Robinson Young<br/>
+Copyright (c) 2017 Kyle Robinson Young<br/>
 Licensed under the MIT license.
