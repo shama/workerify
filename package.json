@@ -1,65 +1,60 @@
 {
-  "name": "workerify",
-  "description": "Transform web workers into browserified inline Blobs with browserify.",
-  "version": "1.0.0",
-  "homepage": "https://github.com/shama/workerify",
-  "author": {
-    "name": "Kyle Robinson Young",
-    "email": "kyle@dontkry.com",
-    "url": "http://dontkry.com"
-  },
-  "main": "index.js",
-  "keywords": [
-    "worker",
-    "browserify",
-    "transform"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/shama/workerify.git"
-  },
-  "bugs": {
-    "url": "https://github.com/shama/workerify/issues"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/shama/workerify/blob/master/LICENSE-MIT"
+    "name": "workerify",
+    "description": "Transform web workers into browserified inline Blobs with browserify.",
+    "version": "1.0.0",
+    "homepage": "https://github.com/shama/workerify",
+    "author": {
+        "name": "Kyle Robinson Young",
+        "email": "kyle@dontkry.com",
+        "url": "http://dontkry.com"
+    },
+    "main": "index.js",
+    "keywords": [
+        "worker",
+        "browserify",
+        "transform"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/shama/workerify.git"
+    },
+    "bugs": {
+        "url": "https://github.com/shama/workerify/issues"
+    },
+    "license": "MIT",
+    "engines": {
+        "node": ">= 0.8.0"
+    },
+    "scripts": {
+        "test": "browserify test/test.js -t ./ -o test/out.js",
+        "start": "budo example/index.js -- -t ./"
+    },
+    "files": [
+        "LICENSE-MIT",
+        "index.js"
+    ],
+    "dependencies": {
+        "browserify": "^14.5.0",
+        "falafel": "^2.1.0",
+        "jsesc": "^2.5.0",
+        "through": "^2.3.4"
+    },
+    "devDependencies": {
+        "budo": "^10.0.3",
+        "workerstream": "^1.2.1",
+        "tape": "^4.8.0"
+    },
+    "testling": {
+        "files": "test/out.js",
+        "browsers": [
+            "ielatest",
+            "chrome/latest",
+            "firefoxlatest",
+            "safari/latest",
+            "opera/latest",
+            "iphone/latest",
+            "ipad/latest",
+            "android-browser/latest"
+        ]
     }
-  ],
-  "engines": {
-    "node": ">= 0.8.0"
-  },
-  "scripts": {
-    "test": "browserify test/test.js -t ./ -o test/out.js",
-    "start": "budo example/index.js -- -t ./"
-  },
-  "files": [
-    "LICENSE-MIT",
-    "index.js"
-  ],
-  "dependencies": {
-    "browserify": "^14.0.0",
-    "falafel": "^0.2.1",
-    "jsesc": "^2.5.0",
-    "through": "^2.3.4"
-  },
-  "devDependencies": {
-    "budo": "^10.0.3",
-    "workerstream": "^1.2.1",
-    "tape": "^4.6.3"
-  },
-  "testling": {
-    "files": "test/out.js",
-    "browsers": [
-      "ielatest",
-      "chrome/latest",
-      "firefoxlatest",
-      "safari/latest",
-      "opera/latest",
-      "iphone/latest",
-      "ipad/latest",
-      "android-browser/latest"
-    ]
-  }
 }
