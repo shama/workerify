@@ -91,6 +91,7 @@ npm install workerify
 ```
 
 ## release history
+* 1.1.0 - Support for Workers as modules (@moin-qidwai).
 * 1.0.0 - Upgrade browserify to 14.0.0 (@runn1ng) and other deps. Prefer window.URL over window.webkitURL.
 * 0.3.0 - Upgrade browserify to 3.41.0. Allow worker to be used with watchify (@tmpvar)
 * 0.2.3 - support compilation from coffeescript original source file
