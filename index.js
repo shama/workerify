@@ -31,7 +31,7 @@ module.exports = function(file) {
 
     // process source
     output = falafel(data, {isKeyword:isKeyword}, function(node) {
-      var filename = false, withWorker = false
+      var filename = false, withWorker = false, asModule = false
       if (isWorkerifyKeyword(node)) {
         filename = node.argument.value
       } else if (isWorker(node)) {
@@ -42,6 +42,9 @@ module.exports = function(file) {
         if (node.arguments[0].type === 'Identifier' && vars[node.arguments[0].name]) {
           filename = vars[node.arguments[0].name]
         }
+        if(isModuleMode(node)) {
+            asModule = true;
+        }
       }
       // browserify and update node
       if (filename !== false) {
@@ -51,7 +54,7 @@ module.exports = function(file) {
         self.emit('file', resolvedFile)
 
         bfy(resolvedFile, function(err, data) {
-          node.update(makeBlob(data, withWorker))
+          node.update(makeBlob(data, withWorker, asModule))
           done()
         })
       }
@@ -79,6 +82,15 @@ function isWorker(node) {
     && node.callee.name === 'Worker'
 }
 
+function isModuleMode(node) {
+  return node.arguments.length > 1
+    && node.arguments[1].type === 'ObjectExpression'
+    && node.arguments[1].properties
+    && node.arguments[1].properties.length > 0
+    && node.arguments[1].properties[0].key.name === 'type'
+    && node.arguments[1].properties[0].value.value === 'module'
+}
+
 function isVarLiteral(node) {
   return node.type === 'VariableDeclarator'
     && node.init
@@ -91,9 +103,10 @@ function isWorkerifyKeyword(node) {
     && node.argument.type === 'Literal'
 }
 
-function makeBlob(str, withWorker) {
+function makeBlob(str, withWorker, asModule) {
   var src = '(window.URL || window.webkitURL).createObjectURL(new Blob([""],{type:"text/javascript"}))'
-  if (withWorker === true) src = 'new Worker(' + src + ')'
+  if (withWorker === true && asModule) src = 'new Worker(' + src + ', {type: "module"})'
+  else if(withWorker === true) src = 'new Worker(' + src + ')'
   return falafel(src, function(node) {
     if (node.type === 'Literal' && node.value === '') {
       node.update(strescape(str, {'wrap': true}))
